@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="hms_group_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="implied_ids" eval="[Command.link(ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hms_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[Command.link(ref('hms.hms_group_user'))]"/>
+        <field name="user_ids" eval="[Command.link(ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="hms_patient_user_rule" model="ir.rule">
+        <field name="name">Patient: User sees only own records</field>
+        <field name="model_id" ref="model_hms_patient"/>
+        <field name="groups" eval="[Command.link(ref('hms.hms_group_user'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>

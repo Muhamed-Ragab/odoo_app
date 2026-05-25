@@ -28,7 +28,7 @@
                             <field name="cr_ratio" required="pcr" />
                             <field name="image" widget="image" />
                             <field name="department_ids" widget="many2many_tags" domain="[('is_opened', '=', True)]" />
-                            <field name="doctor_ids" widget="many2many_tags" readonly="not department_ids" />
+                            <field name="doctor_ids" widget="many2many_tags" readonly="not department_ids" groups="hms.hms_group_manager" />
                         </group>
                     </group>
                     <notebook>
